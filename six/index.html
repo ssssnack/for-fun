@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+        <style>
+        /*section p{width:364px;}*/
+
+           /*@media screen and (max-width: 767px){
+               .post{
+                    padding:0px;
+               }        
+               .main-header h1, .main-header small{display: block;}        
+              .wizard>.content>.body label{
+                  text-align: center;
+              }
+              .wizard .actions ul{
+                  width: auto;
+              }
+           }
+            @media screen and (max-width: 650px){
+                .wizard>.steps ul li a{
+                    min-height: 58px;
+                    }
+                     section p{               
+                          width: 249px;
+                          text-align: center;
+                          margin: 0 auto;
+                          line-height: 28px;}
+
+            }
+             @media screen and (max-width: 450px){
+                 .wizard>.steps ul li a{
+                    min-height: 72px;
+                }
+             }
+              @media screen and (max-width: 385px){
+                 .wizard>.steps ul li a{
+                    min-height: 86px;
+                }
+             }
+             @media screen and (max-width: 350px){
+                 .wizard>.steps ul li a{
+                    min-height: 128px;
+                }
+             }*/
+        </style>
+    </head>
+    <body>
+
+        <p>已经阅读书页</p>
+        <input id="readNum" type="" name="" value="">
+
+        <p>计划阅读书页</p>
+        <input id="toalNum" type="" name="" value="">
+        <br>
+        <button id="get" onclick="func()" style="margin-top:20px;">计算</button>
+        <p id="result"></p>
+
+        <script>
+
+            function func(){
+            var readNum =document.getElementById("readNum").value;
+            var toalNum =document.getElementById("toalNum").value;
+            var get =document.getElementById("get");
+            var result =document.getElementById("result");
+
+              
+                var s =(((readNum*1-137)/(toalNum*1-137))*100).toFixed(2) +"%"
+                result.innerHTML=s;
+           };
+        </script>
+   <script>
+       
+      //对象字面量
+      var person ={
+          name :'Nicholas',
+          age :29,
+          job : 'software Engineer',
+
+          sayName: function name() {
+              alert(this.name);
+          }
+      }
+
+       var book ={
+            _year:2004,
+            edition:1
+
+          };
+          Object.defineProperty(book,"year",{
+              get:function(){
+                  return this._year;
+              },
+              set :function(newValue){
+                    if(newValue > 2004){
+                        this._year=newValue;
+                        this.edition +=newValue-2004;
+                    }
+              }
+          })
+
+
+          book.year=2015;
+          console.log(book.edition);
+
+          //工厂模式
+          function createPerson(name,age,job){
+              var o =new Object();
+              o.name=name;
+              o.age=age;
+              o.job=job;
+              o.sayName=function(){
+                  console.log(this.name);
+              }
+              return o ;
+          }
+
+          var person1 =createPerson("bill",29,"teacher");
+          person1.sayName();
+
+          //构造函数模式
+        //   function Person(name,age,job){
+        //       this.name=name;
+        //       this.age=age;
+        //       this.job=job;
+        //       this.sayName=function(){
+        //           console.log(this.name);
+        //       };
+        //   }
+        //   var person2=new Person("snack",19,'student');
+        //   person2.sayName();
+
+          //工厂模式和构造函数的区别有一下几点：
+          //1、没有显示地创建对象；
+          //2、直接将属性和方法赋给了this对象；
+          //3、没有return语句。
+
+          //原型模式
+          //缺点，所有的实例在默认的情况下都取得相同的值
+          //组合使用构造函数和原型模式
+
+          function Person(name,age,job){
+              this.name=name;
+              this.age=age;
+              this.job =job;
+              this.friends=["Shelby","Court"];
+          }
+          Person.prototype ={
+              constructor :Person,
+              sayName :function(){
+                  console.log(this.name);
+              }
+          }
+
+          var person3 =new Person("snack",26,"font-end");
+          person3.sayName();
+
+          //寄生构造函数
+          //假设我们创建一个具有额外方法的特殊数组，由于不能直接修改Array构造函数，因此我们可以使用这个模式。
+          function SpecialArray(){
+              //创建数组
+              var values =new Array();
+              //添加值
+              values.push.apply(values,arguments);
+              //添加方法
+              values.toPipedstring=function(){
+                  return this.join("|");
+              };
+              //返回数组
+              return values;
+          }
+          var colors =new SpecialArray("red","blue","green");
+          console.log(colors.toPipedstring());
+          
+          //组合继承
+          function SuperType(name){
+              this.name=name;
+              this.colors=["red","blue","green"];
+          }
+          SuperType.prototype.sayName =function(){
+              alert(this.name);
+          };
+          function SubType (name,age){
+            //继承属性
+            SuperType.call(this,name);
+            this.age=age;
+          }
+          //继承方法
+          SubType.prototype= new SuperType();
+          SubType.prototype.sayAge=function(){
+            console.log(this.age);
+          };
+   </script>
+    </body>
+</html>
