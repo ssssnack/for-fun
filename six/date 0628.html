@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DOM扩展</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <button type="" id="mybtn">确定</button>
+    <!--vscode格式化代码快捷键 shift+alt+f-->
+    <ul id="ul1">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+    </ul>
+
+    <div id="box">
+        <input type="button" id="add" value="添加" />
+        <input type="button" id="remove" value="删除" />
+        <input type="button" id="move" value="移动" />
+        <input type="button" id="select" value="选择" />
+    </div>
+    <script>
+        //dom 2级事
+        // var btn = document.getElementById("mybtn");
+        // btn.addEventListener("click", function () {
+        //     alert(this.id);
+        // }, false)
+        //3个参数，要处理的事件名称、作为事件的处理程序的函数已经一个布尔值。
+        //如果这个布尔值是true，表示在捕获阶段用事件处理程序；如果是false，表示在冒泡阶段调用事件处理程序
+
+
+        //事件代理
+        //Ecent对象提供了一个属性叫target，可以返回事件的目节点，我们称之为事件源，也就是说，target
+        //就可以表示当前事件操作的dom，但是不是真正的dom，当然，这个是有兼容性的，标准的浏览器用 ev.target
+        //IE浏览器用 event.srcElement,此时只是获取了当前节点的位置，并不知道是什么节点名称，这里我们用nodeName
+        //来获取具体的标签名,这个返回是大写的，还需要转换下。
+
+        window.onload = function () {　　
+            var oUl = document.getElementById("ul1");　　
+            oUl.onclick = function (ev) {　　　　
+                var ev = ev || window.event;　　　　
+                var target = ev.target || ev.srcElement;　　　　
+                if (target.nodeName.toLowerCase() == 'li') {　　　　　　　
+                    console.log(123);　　　　　　　
+                    console.log(target.innerHTML);　　　　
+                }　　
+            }
+            var oBox = document.getElementById("box");
+            oBox.onclick = function (ev) {
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if (target.nodeName.toLowerCase() == 'input') {
+                    switch (target.id) {
+                        case "add":
+                            alert("添加");
+                            break;
+                        case "remove":
+                            alert("删除");
+                            break;
+                        case "move":
+                            alert("移动");
+                            break;
+                        case "select":
+                            alert("选择");
+                            break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
